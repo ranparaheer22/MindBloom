@@ -76,17 +76,9 @@
  max-width: 440px; margin: 0 auto;
  }
  .graphics-row {
- display: flex; justify-content: center; gap: 12px;
- font-size: 2rem; margin: 20px 0;
- flex-wrap: wrap;
+ display: none;
  }
- .graphic-icon {
- animation: float 3s ease-in-out infinite;
- display: inline-block;
- }
- .graphic-icon:nth-child(2) { animation-delay: 0.5s; }
- .graphic-icon:nth-child(3) { animation-delay: 1s; }
- .graphic-icon:nth-child(4) { animation-delay: 1.5s; }
+ .graphic-icon { display: none; }
  .btn-row {
  display: flex; justify-content: space-between; align-items: center;
  margin-top: 36px; gap: 12px; flex-wrap: wrap;
@@ -131,7 +123,6 @@
  <span class="age-icon" id="age-icon"></span>
  <div class="welcome-name anim-fadeInUp" id="welcome-name">Hello!</div>
  <div class="welcome-msg anim-fadeInUp delay-1" id="welcome-msg">We're so glad you're here.</div>
- <div class="graphics-row" id="graphics-row"></div>
  <p class="welcome-sub anim-fadeInUp delay-3" id="welcome-sub"></p>
 
  <div class="btn-row anim-fadeInUp delay-4">
@@ -158,7 +149,6 @@
  const msgEl = document.getElementById('welcome-msg');
  const subEl = document.getElementById('welcome-sub');
  const iconEl = document.getElementById('age-icon');
- const graphicsEl = document.getElementById('graphics-row');
  const bgFx = document.getElementById('bg-fx');
 
  nameEl.textContent = `Welcome, ${name}! 🌿`;
@@ -169,19 +159,7 @@
  iconEl.textContent = '🧸';
  msgEl.textContent = 'Hello little friend! We are so glad you\'re here!';
  subEl.textContent = 'This small questionnaire will help you talk about how you feel inside. There are no right or wrong answers — just be yourself!';
- graphicsEl.innerHTML = `
- <span class="graphic-icon">🌸</span>
- <span class="graphic-icon">🍀</span>
- <span class="graphic-icon">🌿</span>
- <span class="graphic-icon">🌱</span>
- <span class="graphic-icon">🍃</span>`;
- bgFx.innerHTML = Array.from({length:12}, () => {
- const icons = ['🌸','🌿','🍃','🌱','🍀'];
- const icon = icons[Math.floor(Math.random()*icons.length)];
- return `<span style="position:fixed;font-size:${1+Math.random()*0.8}rem;
- left:${Math.random()*100}%;top:${Math.random()*100}%;
- opacity:0.1;animation:float ${4+Math.random()*3}s ease-in-out ${Math.random()*2}s infinite;">${icon}</span>`;
- }).join('');
+
 
  } else if (age >= 13 && age <= 19) {
  // TEEN
@@ -189,24 +167,9 @@
  iconEl.textContent = '🌙';
  msgEl.textContent = `Hey ${name}! Life hits different sometimes, doesn't it?`;
  subEl.textContent = 'Being a teen is hard. But talking about how you feel is the most courageous thing you can do. No judgement here — only good energy and understanding.';
- graphicsEl.innerHTML = `
- <span class="graphic-icon">🌙</span>
- <span class="graphic-icon">💙</span>
- <span class="graphic-icon">🌿</span>
- <span class="graphic-icon">🌑</span>
- <span class="graphic-icon">🍃</span>`;
  // Floating hearts
  bgFx.className = 'hearts-bg';
- bgFx.innerHTML = Array.from({length:20}, () =>
- `<span class="heart-float" style="left:${Math.random()*100}%;
- animation-duration:${6+Math.random()*6}s;
- animation-delay:${Math.random()*5}s;">♡</span>`
- ).join('') + Array.from({length:8}, () =>
- `<span class="music-note" style="left:${Math.random()*100}%;
- bottom:${Math.random()*30}%;
- animation-duration:${3+Math.random()*3}s;
- animation-delay:${Math.random()*3}s;">♪</span>`
- ).join('');
+
 
  } else if (age <= 60) {
  // ADULT
@@ -214,18 +177,7 @@
  iconEl.textContent = '🌿';
  msgEl.textContent = `Hey ${name}, you are doing incredible!`;
  subEl.textContent = 'You are handling responsibilities, work, and relationships — all at once. That takes real strength. Do not stress up more — live your heart out! Take this moment just for YOU.';
- graphicsEl.innerHTML = `
- <span class="graphic-icon">🌿</span>
- <span class="graphic-icon">🌱</span>
- <span class="graphic-icon">🍃</span>
- <span class="graphic-icon">💚</span>
- <span class="graphic-icon">🌾</span>`;
- bgFx.innerHTML = Array.from({length:8}, (_, i) => {
- const icons = ['🌿','💚','🍃'];
- return `<span style="position:fixed;font-size:${2+Math.random()}rem;
- left:${Math.random()*100}%;top:${Math.random()*100}%;
- opacity:0.07;animation:float ${5+Math.random()*4}s ease-in-out ${i*0.5}s infinite;">${icons[i%3]}</span>`;
- }).join('');
+ 
 
  } else {
  // SENIOR
@@ -233,17 +185,6 @@
  iconEl.textContent = '🕊';
  msgEl.textContent = `My dear ${name}, you look absolutely wonderful!`;
  subEl.textContent = 'You did so well in your past — what is bothering you, my dear friend? You look young and radiant. Your wisdom is an inspiration. Take a moment, breathe easy, and let us understand your feelings together.';
- graphicsEl.innerHTML = `
- <span class="graphic-icon">🕊</span>
- <span class="graphic-icon">🌿</span>
- <span class="graphic-icon">🍃</span>
- <span class="graphic-icon">🌱</span>
- <span class="graphic-icon">🌿</span>`;
- bgFx.innerHTML = Array.from({length:6}, () =>
- `<span style="position:fixed;font-size:${1.5+Math.random()}rem;
- left:${Math.random()*100}%;top:${Math.random()*100}%;
- opacity:0.08;animation:float ${6+Math.random()*4}s ease-in-out ${Math.random()*3}s infinite;">🕊</span>`
- ).join('');
  }
  });
  </script>
