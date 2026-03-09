@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8"/>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <title>Thank You — Mind Bloom 🌿</title>
+ <link rel="stylesheet" href="/static/css/style.css"/>
+ <link rel="icon" href="/static/images/logo.png"/>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+ 
+ <style>
+ body { min-height: 100vh; }
+ .end-page {
+ min-height: 100vh;
+ padding: 90px 20px 80px;
+ position: relative;
+ overflow: hidden;
+ }
+ .end-inner { max-width: 680px; margin: 0 auto; }
+ /* Hero */
+ .end-hero {
+ text-align: center;
+ background: white;
+ border-radius: 32px;
+ padding: 56px 40px 44px;
+ box-shadow: 0 12px 50px rgba(90,138,90,0.14);
+ border: 1px solid var(--sage-100);
+ margin-bottom: 32px;
+ position: relative; overflow: hidden;
+ }
+ .end-hero::before {
+ content: ''; position: absolute; top:0; left:0; right:0;
+ height: 5px;
+ background: linear-gradient(90deg,var(--sage-400),var(--gold),var(--sage-600));
+ }
+ .end-logo { width: 80px; height: 80px; object-fit: contain; animation: float 3s ease-in-out infinite; }
+ .end-title {
+ font-family: 'Cormorant Garamond', serif;
+ font-size: 3rem; color: var(--sage-700);
+ margin-top: 16px; line-height: 1.1;
+ }
+ .end-msg {
+ font-size: 1.0rem; color: var(--text-mid);
+ line-height: 1.7; margin-top: 16px;
+ max-width: 480px; margin-left: auto; margin-right: auto;
+ }
+ /* Quotes */
+ .quotes-section { margin-bottom: 32px; }
+ .quotes-title {
+ font-family: 'Cormorant Garamond', serif;
+ font-size: 1.8rem; color: var(--sage-700);
+ margin-bottom: 20px; text-align: center;
+ }
+ .quote-card {
+ background: white; border-left: 4px solid var(--sage-400);
+ border-radius: var(--radius-md); padding: 24px 28px;
+ margin-bottom: 16px;
+ box-shadow: 0 4px 20px rgba(90,138,90,0.08);
+ position: relative; overflow: hidden;
+ animation: fadeInUp 0.6s ease both;
+ }
+ .quote-card::before {
+ content: '"'; font-family: 'Cormorant Garamond', serif;
+ font-size: 6rem; color: var(--sage-100);
+ position: absolute; top: -10px; left: 12px; line-height: 1;
+ }
+ .qt { font-family:'Playfair Display',serif; font-style:italic; font-size:1.05rem; color:var(--text-dark); line-height:1.7; }
+ .qa { font-size:0.82rem; color:var(--text-light); margin-top:10px; letter-spacing:0.05em; }
+
+ /* Surprise button */
+ .surprise-row { text-align: center; margin-bottom: 32px; }
+ .surprise-trigger {
+ display: inline-flex; align-items: center; gap: 10px;
+ padding: 18px 40px;
+ border-radius: 50px;
+ background: linear-gradient(135deg, var(--gold), #e8a840);
+ color: white; border: none; cursor: pointer;
+ font-family: 'Cormorant Garamond', serif;
+ font-size: 1.3rem;
+ box-shadow: 0 6px 30px rgba(201,169,110,0.4);
+ transition: var(--transition);
+ animation: pulseCta 2s ease-in-out infinite;
+ }
+ .surprise-trigger:hover { transform: translateY(-3px) scale(1.03); }
+ @keyframes pulseCta {
+ 0%,100%{box-shadow:0 6px 30px rgba(201,169,110,0.4)}
+ 50%{box-shadow:0 10px 40px rgba(201,169,110,0.7)}
+ }
+
+ /* Surprise overlay */
+ .surprise-overlay {
+ position: fixed; inset: 0;
+ background: rgba(30,58,30,0.55);
+ backdrop-filter: blur(8px);
+ z-index: 500;
+ display: flex; align-items: center; justify-content: center;
+ opacity: 0; visibility: hidden;
+ transition: var(--transition);
+ }
+ .surprise-overlay.show { opacity: 1; visibility: visible; }
+ .surprise-card {
+ background: white; border-radius: 32px;
+ padding: 48px 36px;
+ max-width: 400px; width: 90%;
+ text-align: center;
+ box-shadow: 0 20px 70px rgba(0,0,0,0.2);
+ border: 2px solid var(--gold-light);
+ position: relative;
+ animation: scaleIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+ overflow: hidden;
+ }
+ .sc-close {
+ position: absolute; top: 16px; right: 20px;
+ background: none; border: none; font-size: 1.4rem;
+ cursor: pointer; color: var(--text-light);
+ }
+ .sc-name {
+ font-family: 'Cormorant Garamond', serif;
+ font-size: 2.4rem; color: var(--sage-700);
+ }
+ .sc-quote {
+ font-family: 'Playfair Display', serif;
+ font-style: italic; font-size: 1.05rem;
+ color: var(--text-dark); line-height: 1.7;
+ margin-top: 16px;
+ }
+ .sc-msg {
+ font-size: 0.88rem; color: var(--text-mid);
+ margin-top: 12px; line-height: 1.6;
+ }
+ .sc-actions {
+ display: flex; gap: 10px; justify-content: center;
+ margin-top: 24px; flex-wrap: wrap;
+ }
+ .confetti-container {
+ position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+ }
+
+ /* Logout row */
+ .logout-row { text-align: center; margin-top: 40px; }
+
+ /* Floating petals */
+ .petal { position: fixed; font-size:1.2rem; opacity:0.15; pointer-events:none; animation: petalFall linear infinite; }
+ @keyframes petalFall {
+ 0%{transform:translateY(-20px) rotate(0);opacity:0}
+ 10%{opacity:0.15}
+ 90%{opacity:0.15}
+ 100%{transform:translateY(110vh) rotate(360deg);opacity:0}
+ }
+
+ @media(max-width:480px){
+ .end-title { font-size: 2.2rem; }
+ .end-hero { padding: 40px 24px; }
+ }
+ </style>
+</head>
+<body>
+ <div id="page-loader">
+ <img src="/static/images/load.png" class="loader-img" alt="Loading"/>
+ <div class="loader-brand">Mind Bloom</div>
+ <div class="loader-dots"><span></span><span></span><span></span></div>
+ </div>
+ <div class="bg-pattern"></div>
+ <nav class="topbar">
+ <div class="topbar-brand">
+ <img src="/static/images/logo.png" alt="Logo"/>
+ <span>Mind Bloom</span>
+ </div>
+ <div style="font-size:0.8rem;color:var(--text-light);">Step 7 of 7 </div>
+ </nav>
+
+ <!-- Floating petals -->
+ <div id="petals-bg"></div>
+
+ <div class="end-page">
+ <div class="end-inner">
+
+ <!-- Hero -->
+ <div class="end-hero anim-scaleIn">
+ <img src="/static/images/logo.png" class="end-logo" alt="Logo"/>
+ <h1 class="end-title">Thank You, <span id="end-name">Friend</span>! 🌿</h1>
+ <p class="end-msg">
+ We are deeply grateful that you chose <strong>Mind Bloom</strong> as your companion today. 
+ Your willingness to look inward takes incredible courage and self-love. 💚<br><br>
+ We hope this journey brings you clarity, peace and the motivation to bloom in every way. 
+ Remember — you are never alone, and every step toward understanding yourself matters. 
+ </p>
+ <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+ <span class="badge badge-sage">🌿 Self-Aware</span>
+ <span class="badge badge-gold">💙 Courageous</span>
+ <span class="badge badge-sage">💚 Blooming</span>
+ </div>
+ </div>
+
+ <!-- Quotes -->
+ <div class="quotes-section">
+ <h2 class="quotes-title anim-fadeInUp"> Words to Carry With You</h2>
+ <div id="quotes-container"></div>
+ </div>
+
+ <!-- Surprise Button -->
+ <div class="surprise-row anim-fadeInUp delay-3">
+ <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:16px;">Something special is waiting for you… </p>
+ <button class="surprise-trigger" onclick="openSurprise()">
+ Open Your Surprise Gift
+ </button>
+ </div>
+
+ <!-- Logout -->
+ <div class="logout-row anim-fadeInUp delay-4">
+ <button class="btn btn-outline btn-lg" onclick="logout()">
+  Logout &amp; Return Home
+ </button>
+ </div>
+ </div>
+ </div>
+
+ <!-- Surprise overlay -->
+ <div class="surprise-overlay" id="surprise-overlay">
+ <div class="surprise-card" id="surprise-card">
+ <div class="confetti-container" id="confetti-container"></div>
+ <button class="sc-close" onclick="closeSurprise()">✕</button>
+ <div style="font-size:3rem;margin-bottom:12px;" id="sc-emoji"></div>
+ <div class="sc-name" id="sc-name">You</div>
+ <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-light);margin-top:4px;">
+ Your Special Mind Bloom Card 🌿
+ </div>
+ <div class="sc-quote" id="sc-quote"></div>
+ <div class="sc-msg" id="sc-msg"></div>
+ <div style="margin:20px 0;border-top:1px solid var(--sage-100);"></div>
+ <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--sage-600);">
+ 🌱 Mind Bloom — Read the mind. Begin the bloom.
+ </div>
+ <div class="sc-actions">
+ <button class="btn btn-primary btn-sm" onclick="downloadCard('pdf')"> PDF</button>
+ <button class="btn btn-outline btn-sm" onclick="downloadCard('img')">️ Image</button>
+ <button class="btn btn-gold btn-sm" onclick="closeSurprise()">💚 Keep Blooming</button>
+ </div>
+ </div>
+ </div>
+
+ <script src="/static/js/main.js"></script>
+ <script>
+ const ALL_QUOTES = [
+ { text: "You don't have to be positive all the time. It's perfectly okay to feel sad, angry, annoyed, frustrated, scared, or anxious. Having feelings doesn't make you a negative person. It makes you human.", author: "Lori Deschene" },
+ { text: "Mental health is not a destination, but a process. It's about how you drive, not where you're going.", author: "Noam Shpancer" },
+ { text: "Self-care is not self-indulgence. Self-care is self-preservation.", author: "Audre Lorde" },
+ { text: "You are not your illness. You have an individual story to tell. You have a name, a history, a personality.", author: "Julian Seifter" },
+ { text: "What mental health needs is more sunlight, more candor, and more unashamed conversation.", author: "Glenn Close" },
+ { text: "There is hope, even when your brain tells you there isn't.", author: "John Green" },
+ { text: "Happiness can be found even in the darkest of times, if one only remembers to turn on the light.", author: "Albus Dumbledore" },
+ { text: "You yourself, as much as anybody in the entire universe, deserve your love and affection.", author: "Buddha" },
+ { text: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela" },
+ { text: "In the middle of every difficulty lies opportunity.", author: "Albert Einstein" }
+ ];
+
+ const PERSONAL_QUOTES = [
+ "You walked through fire and came out glowing — that's not luck, that's YOU. ",
+ "Some people are like stars — they shine brightest when it's darkest. You're one of them. ",
+ "Your mind is a garden. Every thought you tend becomes a flower. ",
+ "You have survived every hard day so far. Your track record is 100%. ",
+ "The world is genuinely better because you're in it — never forget that. ",
+ "You are not just surviving — you are becoming. And becoming is beautiful. ",
+ "Your sensitivity is a superpower. The world needs hearts like yours. 💚",
+ "Storms make trees grow deeper roots. You are rooted and you are rising. 🌳"
+ ];
+
+ window.addEventListener('DOMContentLoaded', () => {
+ const user = MB.get('user') || {};
+ const name = user.name || 'Friend';
+ document.getElementById('end-name').textContent = name;
+
+ // Render 3 random quotes
+ const shuffled = ALL_QUOTES.sort(() => 0.5 - Math.random()).slice(0, 3);
+ const qContainer = document.getElementById('quotes-container');
+ shuffled.forEach((q, i) => {
+ const el = document.createElement('div');
+ el.className = 'quote-card';
+ el.style.animationDelay = (i * 0.15) + 's';
+ el.innerHTML = `<div class="qt">${q.text}</div><div class="qa">— ${q.author}</div>`;
+ qContainer.appendChild(el);
+ });
+
+ // Petals
+ const petalsEl = document.getElementById('petals-bg');
+ ['','','🍃','🌿',''].forEach(p => {
+ for (let i = 0; i < 4; i++) {
+ const el = document.createElement('div');
+ el.className = 'petal';
+ el.textContent = p;
+ el.style.left = Math.random() * 100 + '%';
+ el.style.animationDuration = (10 + Math.random() * 8) + 's';
+ el.style.animationDelay = (Math.random() * 8) + 's';
+ petalsEl.appendChild(el);
+ }
+ });
+ });
+
+ function openSurprise() {
+ const user = MB.get('user') || {};
+ const name = user.name || 'Beautiful Soul';
+ const condition = MB.get('condition') || 'No Condition';
+
+ const personalQ = PERSONAL_QUOTES[Math.floor(Math.random() * PERSONAL_QUOTES.length)];
+ const emojis = { 'No Condition':'', 'Anxiety':'💚', 'Depression':'💙', 'Stress':'🌿', 'Anxiety+Depression':'' };
+
+ document.getElementById('sc-name').textContent = name;
+ document.getElementById('sc-emoji').textContent = emojis[condition] || '🌿';
+ document.getElementById('sc-quote').textContent = personalQ;
+
+ const personalMsgs = [
+ `${name}, you are braver than you believe, stronger than you seem, and more loved than you know. 💚`,
+ `Dear ${name} — your presence in this world creates ripples of goodness you may never fully see. Keep going. `,
+ `${name}, the courage it takes to understand yourself is extraordinary. We are proud of you! `,
+ `To the one reading this — ${name} — your mind is a masterpiece still being painted. Don't rush the art. `
+ ];
+ document.getElementById('sc-msg').textContent = personalMsgs[Math.floor(Math.random() * personalMsgs.length)];
+
+ const overlay = document.getElementById('surprise-overlay');
+ overlay.classList.add('show');
+
+ // Confetti
+ const conf = document.getElementById('confetti-container');
+ conf.innerHTML = '';
+ launchConfetti(conf);
+ }
+
+ function closeSurprise() {
+ document.getElementById('surprise-overlay').classList.remove('show');
+ }
+
+ async function downloadCard(type) {
+   try {
+     const { jsPDF } = window.jspdf;
+
+     const user      = MB.get('user')      || {};
+     const condition = MB.get('condition') || 'No Condition';
+     const name      = user.name || 'Beautiful Soul';
+     const quote     = document.getElementById('sc-quote').textContent || '';
+     const msg       = document.getElementById('sc-msg').textContent   || '';
+
+     // ── All colours as RGB arrays (jsPDF requires this) ──────
+     const CREAM    = [250,248,243];
+     const SAGE50   = [244,247,244];
+     const SAGE100  = [232,240,232];
+     const SAGE200  = [209,226,209];
+     const SAGE400  = [122,170,122];
+     const SAGE500  = [90,138,90];
+     const SAGE600  = [74,122,74];
+     const SAGE700  = [58,106,58];
+     const GOLD     = [201,169,110];
+     const WHITE    = [255,255,255];
+     const TXT_D    = [44,62,44];
+     const TXT_M    = [74,94,74];
+     const TXT_L    = [122,142,122];
+
+     const condRGB = {
+       'No Condition':       SAGE500,
+       'Anxiety':            GOLD,
+       'Depression':         [90,122,170],
+       'Stress':             [170,106,90],
+       'Anxiety+Depression': [138,90,170]
+     };
+     const ACCENT = condRGB[condition] || SAGE500;
+     // Lighter tint for badge bg (mix with white)
+     const ACCENT_LIGHT = ACCENT.map(c => Math.round(c*0.18 + 255*0.82));
+
+     // ── Helpers ───────────────────────────────────────────────
+     const sf = c => pdf.setFillColor(c[0],c[1],c[2]);
+     const sd = c => pdf.setDrawColor(c[0],c[1],c[2]);
+     const st = c => pdf.setTextColor(c[0],c[1],c[2]);
+
+     // ── PDF card 120×170mm ───────────────────────────────────
+     const CW=120, CH=170;
+     const pdf = new jsPDF({ orientation:'p', unit:'mm', format:[CW,CH] });
+
+     // Background
+     sf(CREAM); pdf.rect(0,0,CW,CH,'F');
+
+     // Top header band
+     sf(SAGE700); pdf.rect(0,0,CW,24,'F');
+     sf(ACCENT);  pdf.rect(0,22,CW,2,'F');
+
+     // Brand text
+     pdf.setFontSize(13); st(WHITE); pdf.setFont('helvetica','bold');
+     pdf.text('Mind Bloom', CW/2, 8, {align:'center', baseline:'top'});
+     pdf.setFontSize(7); st(SAGE200); pdf.setFont('helvetica','normal');
+     pdf.text('Read the mind. Begin the bloom.', CW/2, 16, {align:'center', baseline:'top'});
+
+     // Name
+     pdf.setFontSize(17); st(SAGE700); pdf.setFont('helvetica','bold');
+     pdf.text(name, CW/2, 32, {align:'center', baseline:'top'});
+
+     // Divider
+     sd(SAGE200); pdf.setLineWidth(0.25);
+     pdf.line(16, 44, CW-16, 44);
+
+     // Condition badge
+     const bW=60, bH=9, bX=(CW-bW)/2, bY=48;
+     sf(ACCENT_LIGHT); sd(ACCENT); pdf.setLineWidth(0.5);
+     pdf.roundedRect(bX, bY, bW, bH, 4, 4, 'FD');
+     pdf.setFontSize(8); st(ACCENT); pdf.setFont('helvetica','bold');
+     pdf.text(condition, CW/2, bY+1.2, {align:'center', baseline:'top'});
+
+     // Quote
+     pdf.setFontSize(9); st(TXT_D); pdf.setFont('helvetica','italic');
+     const qLines = pdf.splitTextToSize('"' + quote + '"', CW-24);
+     let qy = 64;
+     qLines.forEach(line => {
+       pdf.text(line, CW/2, qy, {align:'center', baseline:'top'});
+       qy += 5.5;
+     });
+
+     // Second divider
+     sd(SAGE100); pdf.setLineWidth(0.2);
+     pdf.line(16, qy+3, CW-16, qy+3);
+
+     // Message
+     pdf.setFontSize(8); st(TXT_M); pdf.setFont('helvetica','normal');
+     const mLines = pdf.splitTextToSize(msg, CW-22);
+     let my = qy+8;
+     mLines.forEach(line => {
+       pdf.text(line, CW/2, my, {align:'center', baseline:'top'});
+       my += 5;
+     });
+
+     // Decorative dots above footer
+     const dotY = CH - 22;
+     [[SAGE400,0],[GOLD,1],[SAGE400,2]].forEach(([col,i]) => {
+       sf(col); pdf.circle(CW/2 - 6 + i*6, dotY, 1.5, 'F');
+     });
+
+     // Footer band
+     sf(SAGE700); pdf.rect(0, CH-16, CW, 16, 'F');
+     pdf.setFontSize(7); st(SAGE200); pdf.setFont('helvetica','normal');
+     pdf.text('mindbloom.app  ·  Your wellbeing matters', CW/2, CH-10, {align:'center', baseline:'top'});
+
+     const safeName = String(name).replace(/[^a-zA-Z0-9]/g,'_');
+
+     if (type === 'img') {
+       // ── PNG export using Canvas API (pure JS drawing, no html2canvas) ──
+       const SC   = 3; // scale factor for high-res
+       const canvas = document.createElement('canvas');
+       canvas.width  = CW * SC;
+       canvas.height = CH * SC;
+       const ctx = canvas.getContext('2d');
+       ctx.scale(SC, SC);
+
+       const hexOf = rgb => '#' + rgb.map(v=>v.toString(16).padStart(2,'0')).join('');
+       const wrap2 = (text, maxW) => {
+         const words = text.split(' ');
+         const out = []; let line = '';
+         words.forEach(w => {
+           const test = line ? line+' '+w : w;
+           if(ctx.measureText(test).width > maxW && line){ out.push(line); line=w; }
+           else line=test;
+         });
+         if(line) out.push(line);
+         return out;
+       };
+
+       // Background
+       ctx.fillStyle = hexOf(CREAM); ctx.fillRect(0,0,CW,CH);
+
+       // Top band
+       ctx.fillStyle = hexOf(SAGE700); ctx.fillRect(0,0,CW,24);
+       ctx.fillStyle = hexOf(ACCENT);  ctx.fillRect(0,22,CW,2);
+
+       // Brand
+       ctx.textAlign = 'center';
+       ctx.fillStyle = hexOf(WHITE);
+       ctx.font = 'bold 13px Arial';
+       ctx.fillText('Mind Bloom', CW/2, 18);
+       ctx.font = '7px Arial';
+       ctx.fillStyle = hexOf(SAGE200);
+       ctx.fillText('Read the mind. Begin the bloom.', CW/2, 22);
+
+       // Name
+       ctx.font = 'bold 15px Georgia';
+       ctx.fillStyle = hexOf(SAGE700);
+       ctx.fillText(name, CW/2, 42);
+
+       // Rule
+       ctx.strokeStyle = hexOf(SAGE200); ctx.lineWidth = 0.5;
+       ctx.beginPath(); ctx.moveTo(16,47); ctx.lineTo(CW-16,47); ctx.stroke();
+
+       // Badge
+       const badgeW=60, badgeH=9, badgeX=(CW-badgeW)/2;
+       ctx.fillStyle = hexOf(ACCENT_LIGHT);
+       ctx.strokeStyle = hexOf(ACCENT); ctx.lineWidth = 0.5;
+       ctx.beginPath();
+       ctx.roundRect(badgeX, 51, badgeW, badgeH, 3);
+       ctx.fill(); ctx.stroke();
+       ctx.fillStyle = hexOf(ACCENT);
+       ctx.font = 'bold 8px Arial';
+       ctx.fillText(condition, CW/2, 59);
+
+       // Quote
+       ctx.fillStyle = hexOf(TXT_D); ctx.font = 'italic 8px Georgia';
+       const qL2 = wrap2('"'+quote+'"', CW-28);
+       let qy2 = 72;
+       qL2.forEach(l => { ctx.fillText(l, CW/2, qy2); qy2+=11; });
+
+       // Rule
+       ctx.strokeStyle = hexOf(SAGE100); ctx.lineWidth = 0.3;
+       ctx.beginPath(); ctx.moveTo(16,qy2+4); ctx.lineTo(CW-16,qy2+4); ctx.stroke();
+
+       // Message
+       ctx.fillStyle = hexOf(TXT_M); ctx.font = '7.5px Arial';
+       const mL2 = wrap2(msg, CW-24);
+       let my2 = qy2+14;
+       mL2.forEach(l => { ctx.fillText(l, CW/2, my2); my2+=11; });
+
+       // Dots
+       [[SAGE400,-6],[GOLD,0],[SAGE400,6]].forEach(([col,offset]) => {
+         ctx.fillStyle = hexOf(col);
+         ctx.beginPath(); ctx.arc(CW/2+offset, CH-22, 2.5, 0, 2*Math.PI); ctx.fill();
+       });
+
+       // Footer
+       ctx.fillStyle = hexOf(SAGE700); ctx.fillRect(0,CH-16,CW,16);
+       ctx.fillStyle = hexOf(SAGE200); ctx.font = '7px Arial';
+       ctx.fillText('mindbloom.app  ·  Your wellbeing matters', CW/2, CH-7);
+
+       const link = document.createElement('a');
+       link.download = 'MindBloom_Card_'+safeName+'.png';
+       link.href = canvas.toDataURL('image/png');
+       link.click();
+
+     } else {
+       pdf.save('MindBloom_Card_'+safeName+'.pdf');
+     }
+
+     showToast('Saved!', 'Your card has been downloaded.', 'success');
+
+   } catch(e) {
+     console.error('Card download error:', e);
+     showToast('Error', 'Could not generate card. Please try again.', 'error');
+   }
+ }
+
+ function logout() {
+ MB.clear();
+ navigateTo('/');
+ }
+ </script>
+</body>
+</html>
