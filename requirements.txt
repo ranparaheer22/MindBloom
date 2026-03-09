@@ -1,5 +1,5 @@
-flask==3.0.0
-scikit-learn==1.4.0
-pandas==2.1.4
-numpy==1.26.3
-pickle5==0.0.11
+flask==3.0.3
+scikit-learn==1.5.1
+pandas==2.2.2
+numpy==1.26.4
+gunicorn==22.0.0
