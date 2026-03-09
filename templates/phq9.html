@@ -68,7 +68,7 @@
  }
  .q-counter {
  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
- text-transform: uppercase; color: #8a6030;
+ text-transform: uppercase; color: var(--sage-500);
  margin-bottom: 14px;
  }
  .q-title {
@@ -89,9 +89,9 @@
  font-size: 0.91rem; color: var(--text-dark); text-align: left;
  width: 100%;
  }
- .opt-btn:hover {
- border-color: var(--gold);
- background: #fdf6ec;
+.opt-btn:hover {
+ border-color: var(--sage-400);
+ background: var(--sage-100);
  transform: translateX(3px);
  }
  .opt-btn.selected {
@@ -109,8 +109,8 @@
  display: flex; align-items: center; justify-content: center;
  }
  .opt-btn.selected .opt-radio {
- border-color: var(--gold);
- background: var(--gold);
+ border-color: var(--sage-500);
+ background: var(--sage-500);
  }
  .opt-btn.selected .opt-radio::after {
  content: '';
@@ -125,7 +125,7 @@
  padding: 2px 8px; border-radius: 50px;
  }
  .opt-btn.selected .opt-score-tag {
- background: rgba(201,169,110,0.25); color: #7a5020;
+ background: rgba(201,169,110,0.25); color: var(--sage-700);
  }
 
  /* Navigation */
@@ -149,11 +149,11 @@
  .nav-prev:disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
 
  .nav-next {
- background: linear-gradient(135deg, var(--gold), #b8894e);
+ background: linear-gradient(135deg, var(--sage-500), var(--sage-600));
  color: white;
- box-shadow: 0 4px 16px rgba(201,169,110,0.34);
+ box-shadow: 0 4px 16px rgba(90,138,90,0.28);
  }
- .nav-next:hover { transform: translateX(2px); box-shadow: 0 6px 22px rgba(201,169,110,0.46); }
+ .nav-next:hover { transform: translateX(2px); box-shadow: 0 6px 22px rgba(90,138,90,0.38); }
  .nav-next:disabled { opacity: 0.38; cursor: not-allowed; pointer-events: none; }
 
  .q-hint {
@@ -161,8 +161,8 @@
  text-align: center; margin-top: 10px; min-height: 18px;
  }
 
- /* Result */
- #phq-result { display: none; animation: scaleIn 0.5s ease both; }
+  /* Result */
+ #gad-result { display: none; animation: scaleIn 0.5s ease both; }
  .result-card {
  background: white; border-radius: 28px;
  padding: 52px 40px; text-align: center;
@@ -172,15 +172,16 @@
  }
  .result-card::before {
  content: ''; position: absolute; top:0; left:0; right:0; height:4px;
- background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--sage-500));
+ background: linear-gradient(90deg, var(--sage-400), var(--sage-600));
  }
  .result-score-big {
  font-family: 'Cormorant Garamond', serif;
- font-size: 5.5rem; color: var(--gold); line-height: 1;
+ font-size: 5.5rem; color: var(--sage-600); line-height: 1;
  }
  .severity-track {
  height: 8px; border-radius: 4px;
- background: var(--sage-100); margin: 22px 0 6px; overflow: hidden;
+ background: var(--sage-100); margin: 22px 0 6px;
+ overflow: hidden;
  }
  .severity-fill {
  height: 100%; border-radius: 4px;
@@ -189,7 +190,7 @@
 
  @media(max-width:480px){
  .qcard-wrap { padding: 28px 20px 24px; }
- .phq-title { font-size: 2rem; }
+ .gad-title { font-size: 2rem; }
  .q-nav { flex-wrap: wrap; }
  .nav-btn { flex:1; justify-content:center; }
  }
@@ -230,7 +231,7 @@
  <span class="prog-label" id="phq-prog-label">Question 1 of 9</span>
  <div class="progress-bar" style="flex:1">
  <div class="progress-fill" id="phq-prog"
- style="width:11%;background:linear-gradient(90deg,var(--gold-light),var(--gold));"></div>
+ style="width:11%"></div>
  </div>
  </div>
 
@@ -266,7 +267,7 @@
  <div class="score-ring">
  <svg id="phq-ring" width="120" height="120" viewBox="0 0 120 120"></svg>
  <div class="score-text">
- <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gold);" id="phq-ring-num">0</div>
+ <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--sage-600);" id="phq-ring-num">0</div>
  <div style="font-size:0.67rem;color:var(--text-light);">/27</div>
  </div>
  </div>
