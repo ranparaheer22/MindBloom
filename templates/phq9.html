@@ -452,16 +452,16 @@
  color = '#7aaa7a'; pct = 30;
  } else if (score <= 14) {
  label = 'Moderate Depression';
- msg = 'Moderate depression — that is not a big deal. You can overcome it. We trust you completely.';
- color = '#7aaa7a'; pct = 52;
+ msg = 'Moderate depression — that is not a big deal. You can overcome it. I trust you completely.';
+ color = '#c9a96e'; pct = 52;
  } else if (score <= 19) {
  label = 'Moderately Severe Depression';
- msg = 'Moderately severe depression — need to work hard, but We know you will do it. Seek support — you deserve it.';
+ msg = 'Moderately severe depression — need to work hard, but I know you will do it. Seek support — you deserve it.';
  color = '#a8785a'; pct = 74;
  } else {
  label = 'Severe Depression';
  msg = 'Severe depression — what is bothering a beautiful and amazing person like you? Consider professional support. You are loved and you will rock this.';
- color = '#8a5a6a'; pct = 94;
+ color = '#a8785a'; pct = 94;
  }
 
  document.getElementById('phq-res-label').textContent = label;
@@ -476,7 +476,7 @@
  drawBarChart('phq-chart',
  ['Interest','Mood','Sleep','Energy','Appetite','Self-worth','Focus','Movement','Thoughts'],
  phqAnswers.map(v => Math.round(v/3*100)),
- ['#5a8a5a','#7aaa7a','#a8c8a8','#c8ddc8','#5a8a5a','#7aaa7a','#a8c8a8','#c8ddc8','#5a8a5a']);
+ ['#5a8a5a','#7aaa7a','#a8c8a8','#c8ddc8','#c9a96e','#b8a090','#8a9a8a','#7aaa7a','#5a8a5a']);
 
  document.getElementById('phq-prog').style.width = '100%';
  document.getElementById('phq-prog-label').textContent = 'All 9 questions answered';
