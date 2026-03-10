@@ -22,7 +22,7 @@
  border: 1px solid var(--sage-100);
  }
  .login-title {
- font-family: 'Cormorant Garamond', serif;
+ font-family: 'Josefin Sans', sans-serif;
  font-size: 2.4rem; color: var(--sage-700);
  margin-bottom: 6px;
  }
@@ -145,20 +145,7 @@
  </div>
  </div>
 
- <!-- Refresh warning modal -->
- <div class="modal" id="leave-modal">
- <div class="modal-box text-center">
- <div style="font-size:3rem;margin-bottom:16px;"></div>
- <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--sage-700);">Whoa there!</h2>
- <p style="margin-top:12px;color:var(--text-mid);line-height:1.6;">
- U-uhh! Are you sure you want to go back? Your progress will be lost!
- </p>
- <div style="display:flex;gap:12px;justify-content:center;margin-top:28px;">
- <button class="btn btn-outline" onclick="closeLeaveModal()">Stay Here 💚</button>
- <button class="btn btn-primary" onclick="confirmLeave()">Yes, Leave</button>
- </div>
- </div>
- </div>
+ <!-- Refresh warning modal removed -->
 
  <script src="/static/js/main.js"></script>
  <script>
@@ -225,25 +212,7 @@
  navigateTo('/welcome2');
  }
 
- // Intercept back navigation
- history.pushState(null, '', window.location.href);
- window.addEventListener('popstate', () => {
- document.getElementById('leave-modal').classList.add('show');
- });
 
- function closeLeaveModal() {
- document.getElementById('leave-modal').classList.remove('show');
- history.pushState(null, '', window.location.href);
- }
- function confirmLeave() {
- window.removeEventListener('beforeunload', () => {});
- window.location.href = '/';
- }
-
- window.addEventListener('beforeunload', (e) => {
- e.preventDefault();
- e.returnValue = 'Your progress will be lost!';
- });
  </script>
 </body>
 </html>

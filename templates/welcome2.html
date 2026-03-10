@@ -57,12 +57,12 @@
  display: block; margin-bottom: 16px;
  }
  .welcome-name {
- font-family: 'Cormorant Garamond', serif;
+ font-family: 'Josefin Sans', sans-serif;
  font-size: 2.8rem; color: var(--sage-700);
  margin-bottom: 6px;
  }
  .welcome-msg {
- font-family: 'Playfair Display', serif;
+ font-family: 'Quicksand', sans-serif;
  font-style: italic;
  font-size: 1.15rem;
  color: var(--text-dark);
@@ -159,7 +159,13 @@
  iconEl.textContent = '🧸';
  msgEl.textContent = 'Hello little friend! We are so glad you\'re here!';
  subEl.textContent = 'This small questionnaire will help you talk about how you feel inside. There are no right or wrong answers — just be yourself!';
-
+ bgFx.innerHTML = Array.from({length:12}, () => {
+ const icons = ['🌸','🌿','🍃','🌱','🍀'];
+ const icon = icons[Math.floor(Math.random()*icons.length)];
+ return `<span style="position:fixed;font-size:${1+Math.random()*0.8}rem;
+ left:${Math.random()*100}%;top:${Math.random()*100}%;
+ opacity:0.1;animation:float ${4+Math.random()*3}s ease-in-out ${Math.random()*2}s infinite;">${icon}</span>`;
+ }).join('');
 
  } else if (age >= 13 && age <= 19) {
  // TEEN
@@ -169,7 +175,16 @@
  subEl.textContent = 'Being a teen is hard. But talking about how you feel is the most courageous thing you can do. No judgement here — only good energy and understanding.';
  // Floating hearts
  bgFx.className = 'hearts-bg';
-
+ bgFx.innerHTML = Array.from({length:20}, () =>
+ `<span class="heart-float" style="left:${Math.random()*100}%;
+ animation-duration:${6+Math.random()*6}s;
+ animation-delay:${Math.random()*5}s;">♡</span>`
+ ).join('') + Array.from({length:8}, () =>
+ `<span class="music-note" style="left:${Math.random()*100}%;
+ bottom:${Math.random()*30}%;
+ animation-duration:${3+Math.random()*3}s;
+ animation-delay:${Math.random()*3}s;">♪</span>`
+ ).join('');
 
  } else if (age <= 60) {
  // ADULT
@@ -177,7 +192,12 @@
  iconEl.textContent = '🌿';
  msgEl.textContent = `Hey ${name}, you are doing incredible!`;
  subEl.textContent = 'You are handling responsibilities, work, and relationships — all at once. That takes real strength. Do not stress up more — live your heart out! Take this moment just for YOU.';
- 
+ bgFx.innerHTML = Array.from({length:8}, (_, i) => {
+ const icons = ['🌿','💚','🍃'];
+ return `<span style="position:fixed;font-size:${2+Math.random()}rem;
+ left:${Math.random()*100}%;top:${Math.random()*100}%;
+ opacity:0.07;animation:float ${5+Math.random()*4}s ease-in-out ${i*0.5}s infinite;">${icons[i%3]}</span>`;
+ }).join('');
 
  } else {
  // SENIOR
@@ -185,6 +205,11 @@
  iconEl.textContent = '🕊';
  msgEl.textContent = `My dear ${name}, you look absolutely wonderful!`;
  subEl.textContent = 'You did so well in your past — what is bothering you, my dear friend? You look young and radiant. Your wisdom is an inspiration. Take a moment, breathe easy, and let us understand your feelings together.';
+ bgFx.innerHTML = Array.from({length:6}, () =>
+ `<span style="position:fixed;font-size:${1.5+Math.random()}rem;
+ left:${Math.random()*100}%;top:${Math.random()*100}%;
+ opacity:0.08;animation:float ${6+Math.random()*4}s ease-in-out ${Math.random()*3}s infinite;">🕊</span>`
+ ).join('');
  }
  });
  </script>

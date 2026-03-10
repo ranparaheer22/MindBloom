@@ -16,7 +16,7 @@
  text-align: center; margin-bottom: 40px;
  }
  .ls-title {
- font-family: 'Cormorant Garamond', serif;
+ font-family: 'Josefin Sans', sans-serif;
  font-size: 2.4rem; color: var(--sage-700);
  }
  .ls-sub {
@@ -42,14 +42,14 @@
  background: linear-gradient(90deg, var(--sage-400), var(--sage-600));
  }
  .q-num {
- font-family: 'Cormorant Garamond', serif;
+ font-family: 'Josefin Sans', sans-serif;
  font-size: 3.5rem; color: var(--sage-100);
  position: absolute; top: 12px; right: 24px;
  line-height: 1; user-select: none;
  }
  .q-icon { font-size: 1.8rem; margin-bottom: 10px; }
  .q-text {
- font-family: 'Playfair Display', serif;
+ font-family: 'Quicksand', sans-serif;
  font-size: 1.15rem; color: var(--text-dark);
  line-height: 1.5; margin-bottom: 28px;
  }
@@ -280,9 +280,15 @@
  };
 
  function updateSlider(q) {
- const val = parseInt(document.getElementById('q'+q).value);
+ const el = document.getElementById('q'+q);
+ const val = parseInt(el.value);
  const labels = SLIDER_LABELS[q];
  document.getElementById('q'+q+'-disp').textContent = labels[val] || val;
+ // Update filled track
+ const min = parseFloat(el.min) || 0;
+ const max = parseFloat(el.max) || 100;
+ const pct = ((val - min) / (max - min)) * 100;
+ el.style.setProperty('--range-fill', pct + '%');
  updateProgress();
  }
 

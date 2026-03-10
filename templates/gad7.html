@@ -12,7 +12,7 @@
 
  .gad-header { text-align: center; margin-bottom: 36px; }
  .gad-title {
- font-family: 'Cormorant Garamond', serif;
+ font-family: 'Josefin Sans', sans-serif;
  font-size: 2.4rem; color: var(--sage-700); letter-spacing: 0.02em;
  }
  .gad-info {
@@ -61,7 +61,7 @@
  background: linear-gradient(90deg, var(--sage-400), var(--sage-600));
  }
  .q-num-bg {
- font-family: 'Cormorant Garamond', serif;
+ font-family: 'Josefin Sans', sans-serif;
  font-size: 7rem; font-weight: 300;
  color: var(--sage-100);
  position: absolute; top: 8px; right: 24px;
@@ -73,7 +73,7 @@
  margin-bottom: 14px;
  }
  .q-title {
- font-family: 'Playfair Display', serif;
+ font-family: 'Quicksand', sans-serif;
  font-size: 1.22rem; color: var(--text-dark);
  line-height: 1.65; margin-bottom: 28px;
  position: relative; z-index: 1; max-width: 440px;
@@ -137,7 +137,7 @@
  .nav-btn {
  display: inline-flex; align-items: center; gap: 8px;
  padding: 13px 28px; border-radius: 50px;
- font-family: 'DM Sans', sans-serif;
+ font-family: 'Quicksand', sans-serif;
  font-size: 0.88rem; font-weight: 500;
  cursor: pointer; border: none; transition: var(--transition);
  letter-spacing: 0.02em;
@@ -176,7 +176,7 @@
  background: linear-gradient(90deg, var(--sage-400), var(--sage-600));
  }
  .result-score-big {
- font-family: 'Cormorant Garamond', serif;
+ font-family: 'Josefin Sans', sans-serif;
  font-size: 5.5rem; color: var(--sage-600); line-height: 1;
  }
  .severity-track {
@@ -255,7 +255,7 @@
  <span>Minimal</span><span>Mild</span><span>Moderate</span><span>Severe</span>
  </div>
 
- <div style="font-family:'Playfair Display',serif;font-size:1.28rem;color:var(--text-dark);line-height:1.4;" id="gad-res-label"></div>
+ <div style="font-family:'Quicksand', sans-serif;font-size:1.28rem;color:var(--text-dark);line-height:1.4;" id="gad-res-label"></div>
  <div style="font-size:0.93rem;color:var(--text-mid);margin-top:12px;line-height:1.7;font-style:italic;max-width:420px;margin-left:auto;margin-right:auto;" id="gad-res-msg"></div>
 
  <div style="margin-top:36px;text-align:left;">
@@ -267,7 +267,7 @@
  <div class="score-ring">
  <svg id="gad-ring" width="120" height="120" viewBox="0 0 120 120"></svg>
  <div class="score-text">
- <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--sage-600);" id="gad-ring-num">0</div>
+ <div style="font-family:'Josefin Sans', sans-serif;font-size:1.8rem;color:var(--sage-600);" id="gad-ring-num">0</div>
  <div style="font-size:0.67rem;color:var(--text-light);">/21</div>
  </div>
  </div>
@@ -453,11 +453,11 @@
  color = '#7aaa7a'; pct = 38;
  } else if (score <= 14) {
  label = 'Moderate Anxiety';
- msg = 'Moderate anxiety — that is not a big deal. You can overcome it like a game. I trust you!';
+ msg = 'Moderate anxiety — that is not a big deal. You can overcome it like a game. We trust you!';
  color = '#c9a96e'; pct = 65;
  } else {
  label = 'Severe Anxiety';
- msg = 'Severe anxiety — need to work hard, but I know you will do it. Consider speaking with a professional.';
+ msg = 'Severe anxiety — need to work hard, but We know you will do it. Consider speaking with a professional.';
  color = '#a8785a'; pct = 92;
  }
 

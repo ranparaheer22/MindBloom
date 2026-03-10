@@ -12,7 +12,7 @@
 
  .phq-header { text-align: center; margin-bottom: 36px; }
  .phq-title {
- font-family: 'Cormorant Garamond', serif;
+ font-family: 'Josefin Sans', sans-serif;
  font-size: 2.4rem; color: var(--sage-700); letter-spacing: 0.02em;
  }
  .phq-info {
@@ -21,7 +21,7 @@
  padding: 16px 20px;
  font-size: 0.86rem; color: var(--text-mid);
  line-height: 1.65; margin-top: 14px;
- border-left: 4px solid var(--gold);
+ border-left: 4px solid var(--sage-400);
  }
 
  .prog-row {
@@ -40,8 +40,8 @@
  background: var(--sage-200); transition: var(--transition);
  cursor: pointer;
  }
- .dot.answered { background: var(--gold-light); border: 1px solid var(--gold); }
- .dot.current { background: var(--gold); width: 24px; border-radius: 4px; }
+ .dot.answered { background: var(--sage-200); border: 1px solid var(--sage-400); }
+ .dot.current { background: var(--sage-600); width: 24px; border-radius: 4px; }
 
  /* Question card */
  .q-slide { display: none; animation: fadeInUp 0.4s ease both; }
@@ -57,10 +57,10 @@
  .qcard-wrap::before {
  content: '';
  position: absolute; top: 0; left: 0; right: 0; height: 4px;
- background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--sage-500));
+ background: linear-gradient(90deg, var(--sage-400), var(--sage-500), var(--sage-600));
  }
  .q-num-bg {
- font-family: 'Cormorant Garamond', serif;
+ font-family: 'Josefin Sans', sans-serif;
  font-size: 7rem; font-weight: 300;
  color: var(--sage-100);
  position: absolute; top: 8px; right: 24px;
@@ -72,7 +72,7 @@
  margin-bottom: 14px;
  }
  .q-title {
- font-family: 'Playfair Display', serif;
+ font-family: 'Quicksand', sans-serif;
  font-size: 1.18rem; color: var(--text-dark);
  line-height: 1.68; margin-bottom: 28px;
  position: relative; z-index: 1; max-width: 440px;
@@ -89,16 +89,16 @@
  font-size: 0.91rem; color: var(--text-dark); text-align: left;
  width: 100%;
  }
-.opt-btn:hover {
+ .opt-btn:hover {
  border-color: var(--sage-400);
- background: var(--sage-100);
+ background: var(--sage-50);
  transform: translateX(3px);
  }
  .opt-btn.selected {
  border-color: var(--sage-500);
  background: var(--sage-100);
  color: var(--sage-700);
- box-shadow: 0 0 0 3px rgba(90,138,90,0.1);
+ box-shadow: 0 0 0 3px rgba(90,138,90,0.12);
  }
  .opt-radio {
  width: 18px; height: 18px; flex-shrink: 0;
@@ -125,7 +125,7 @@
  padding: 2px 8px; border-radius: 50px;
  }
  .opt-btn.selected .opt-score-tag {
- background: rgba(201,169,110,0.25); color: var(--sage-700);
+ background: var(--sage-200); color: var(--sage-700);
  }
 
  /* Navigation */
@@ -136,7 +136,7 @@
  .nav-btn {
  display: inline-flex; align-items: center; gap: 8px;
  padding: 13px 28px; border-radius: 50px;
- font-family: 'DM Sans', sans-serif;
+ font-family: 'Quicksand', sans-serif;
  font-size: 0.88rem; font-weight: 500;
  cursor: pointer; border: none; transition: var(--transition);
  letter-spacing: 0.02em;
@@ -151,9 +151,9 @@
  .nav-next {
  background: linear-gradient(135deg, var(--sage-500), var(--sage-600));
  color: white;
- box-shadow: 0 4px 16px rgba(90,138,90,0.28);
+ box-shadow: 0 4px 16px rgba(90,138,90,0.30);
  }
- .nav-next:hover { transform: translateX(2px); box-shadow: 0 6px 22px rgba(90,138,90,0.38); }
+ .nav-next:hover { transform: translateX(2px); box-shadow: 0 6px 22px rgba(90,138,90,0.42); }
  .nav-next:disabled { opacity: 0.38; cursor: not-allowed; pointer-events: none; }
 
  .q-hint {
@@ -161,8 +161,8 @@
  text-align: center; margin-top: 10px; min-height: 18px;
  }
 
-  /* Result */
- #gad-result { display: none; animation: scaleIn 0.5s ease both; }
+ /* Result */
+ #phq-result { display: none; animation: scaleIn 0.5s ease both; }
  .result-card {
  background: white; border-radius: 28px;
  padding: 52px 40px; text-align: center;
@@ -172,16 +172,15 @@
  }
  .result-card::before {
  content: ''; position: absolute; top:0; left:0; right:0; height:4px;
- background: linear-gradient(90deg, var(--sage-400), var(--sage-600));
+ background: linear-gradient(90deg, var(--sage-400), var(--sage-500), var(--sage-600));
  }
  .result-score-big {
- font-family: 'Cormorant Garamond', serif;
+ font-family: 'Josefin Sans', sans-serif;
  font-size: 5.5rem; color: var(--sage-600); line-height: 1;
  }
  .severity-track {
  height: 8px; border-radius: 4px;
- background: var(--sage-100); margin: 22px 0 6px;
- overflow: hidden;
+ background: var(--sage-100); margin: 22px 0 6px; overflow: hidden;
  }
  .severity-fill {
  height: 100%; border-radius: 4px;
@@ -190,7 +189,7 @@
 
  @media(max-width:480px){
  .qcard-wrap { padding: 28px 20px 24px; }
- .gad-title { font-size: 2rem; }
+ .phq-title { font-size: 2rem; }
  .q-nav { flex-wrap: wrap; }
  .nav-btn { flex:1; justify-content:center; }
  }
@@ -231,7 +230,7 @@
  <span class="prog-label" id="phq-prog-label">Question 1 of 9</span>
  <div class="progress-bar" style="flex:1">
  <div class="progress-fill" id="phq-prog"
- style="width:11%"></div>
+ style="width:11%;"></div>
  </div>
  </div>
 
@@ -255,7 +254,7 @@
  <span>Minimal</span><span>Mild</span><span>Moderate</span><span>Mod. Severe</span><span>Severe</span>
  </div>
 
- <div style="font-family:'Playfair Display',serif;font-size:1.28rem;color:var(--text-dark);line-height:1.4;" id="phq-res-label"></div>
+ <div style="font-family:'Quicksand', sans-serif;font-size:1.28rem;color:var(--text-dark);line-height:1.4;" id="phq-res-label"></div>
  <div style="font-size:0.93rem;color:var(--text-mid);margin-top:12px;line-height:1.7;font-style:italic;max-width:420px;margin-left:auto;margin-right:auto;" id="phq-res-msg"></div>
 
  <div style="margin-top:36px;text-align:left;">
@@ -267,7 +266,7 @@
  <div class="score-ring">
  <svg id="phq-ring" width="120" height="120" viewBox="0 0 120 120"></svg>
  <div class="score-text">
- <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--sage-600);" id="phq-ring-num">0</div>
+ <div style="font-family:'Josefin Sans', sans-serif;font-size:1.8rem;color:var(--sage-600);" id="phq-ring-num">0</div>
  <div style="font-size:0.67rem;color:var(--text-light);">/27</div>
  </div>
  </div>
@@ -453,11 +452,11 @@
  color = '#7aaa7a'; pct = 30;
  } else if (score <= 14) {
  label = 'Moderate Depression';
- msg = 'Moderate depression — that is not a big deal. You can overcome it. I trust you completely.';
- color = '#c9a96e'; pct = 52;
+ msg = 'Moderate depression — that is not a big deal. You can overcome it. We trust you completely.';
+ color = '#7aaa7a'; pct = 52;
  } else if (score <= 19) {
  label = 'Moderately Severe Depression';
- msg = 'Moderately severe depression — need to work hard, but I know you will do it. Seek support — you deserve it.';
+ msg = 'Moderately severe depression — need to work hard, but We know you will do it. Seek support — you deserve it.';
  color = '#a8785a'; pct = 74;
  } else {
  label = 'Severe Depression';
@@ -477,7 +476,7 @@
  drawBarChart('phq-chart',
  ['Interest','Mood','Sleep','Energy','Appetite','Self-worth','Focus','Movement','Thoughts'],
  phqAnswers.map(v => Math.round(v/3*100)),
- ['#c9a96e','#b8a090','#5a8a5a','#7aaa7a','#a8c8a8','#c8ddc8','#c9a96e','#a8907a','#8a9a8a']);
+ ['#5a8a5a','#7aaa7a','#a8c8a8','#c8ddc8','#5a8a5a','#7aaa7a','#a8c8a8','#c8ddc8','#5a8a5a']);
 
  document.getElementById('phq-prog').style.width = '100%';
  document.getElementById('phq-prog-label').textContent = 'All 9 questions answered';
